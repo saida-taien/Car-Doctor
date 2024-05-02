@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/login/login.svg'
 import { useContext } from 'react';
-import { AuthContext } from '../../Providers/AuthProvider';
+import { AuthContext } from '../../providers/AuthProvider';
 
 
 const Login = () => {
