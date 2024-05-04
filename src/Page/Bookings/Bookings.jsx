@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-
-import BookingRow from "./BookingRow";
 import { AuthContext } from "../../providers/AuthProvider";
+import BookingRow from "./BookingRow";
+import axios from "axios";
 
 const Bookings = () => {
     const { user } = useContext(AuthContext);
@@ -9,9 +9,14 @@ const Bookings = () => {
 
     const url = `http://localhost:5000/bookings?email=${user?.email}`;
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setBookings(data))
+
+        axios.get(url, {withCredentials: true})
+        .then(res => {
+            setBookings(res.data);
+        })
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => setBookings(data))
     }, [url]);
 
     const handleDelete = id => {
@@ -56,6 +61,7 @@ const Bookings = () => {
 
     return (
         <div>
+            <h2 className="text-5xl">Your bookings: {bookings.length}</h2>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
                     {/* head */}
